@@ -1,13 +1,25 @@
 const path = require('path');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './index.js', 
+  entry: './src/index.js', 
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
+    devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'dist'), 
+    },
+    open: true, 
+    port: 4000, 
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/battleship.html', 
+    }),],
+
   mode: 'development',
   module: {
     rules: [

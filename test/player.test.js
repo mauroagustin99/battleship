@@ -1,5 +1,5 @@
-import { Player } from '../player.js';
-import { Ship } from '../ship.js';
+import { Player } from '../src/player.js';
+import { Ship } from '../src/ship.js';
 
 test('Player attacks and hits a ship', () => {
   const player = Player('User');
