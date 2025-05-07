@@ -1,18 +1,26 @@
 export function Ship(length) {
   let hits = 0;
 
-  return {
-    length,
+    function getLength() {
+      return length;
+    }
 
-    isSunk() {
-      return hits >= this.length;
-    },
+    function isSunk() {
+      return hits >= length;
+    }
 
-    hit() {
-      if (!this.isSunk()) {
+    function hit() {
+      if (!isSunk()) {
         hits++;
-      }
+      };
+    }
+
+  
+  return{
+    getLength,
+    isSunk,
+    hit,
     }
   };
-}
+
 

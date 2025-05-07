@@ -10,7 +10,7 @@ test('Gameboard initializes correctly', () => {
 
 test('Gameboard places ships correctly', () => {
   const gameboard = Gameboard();
-  const ship = { length: 3, hit: jest.fn(), isSunk: jest.fn() };
+  const ship = Ship(3);
   gameboard.placeShip(ship, 0, 0, 'horizontal');
   expect(gameboard.getBoard()[0][0]).toBe(ship);
   expect(gameboard.getBoard()[0][1]).toBe(ship);

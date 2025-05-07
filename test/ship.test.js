@@ -1,4 +1,4 @@
-import { Ship } from "../ship.js";
+import { Ship } from "../src/ship.js";
 
 test('Ship gets sunk after enough hits', ()=>{
   const ship = Ship(3);

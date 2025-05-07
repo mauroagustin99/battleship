@@ -1,10 +1,12 @@
+import { Ship } from './ship.js';
+
 export function Gameboard() {
   const gameboard = Array.from({ length: 10 }, () => Array(10).fill(null));
   const ships = [];
   const missedShots = [];
   
-  function placeShip( ship, x, y, direction){
-    const length = ship.length;
+  function placeShip(ship, x, y, direction){
+    const length = ship.getLength();
     for (let i = 0; i < length; i++) {
       //Check if the ship is within bounds
       // and if the position is already occupied
