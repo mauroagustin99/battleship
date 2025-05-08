@@ -69,20 +69,20 @@ test('Computer attacks do not repeat the same coordinates', () => {
 test('Computer places all ships correctly on the board', () => {
   const computer = Player('Computer');
   const board = Gameboard();
+
   computer.setGameboard(board);
   computer.autoPlaceFleet();
 
-  const ships = board.getShips(); // Asegurate de que `getShips()` exista y devuelva los barcos colocados
+  const ships = board.getShips(); 
 
-  // Debe haber 7 barcos
-  expect(ships.length).toBe(7);
+  expect(ships.length).toBe(7); //Fleet size is 7
   expect(board.getShips().length).toBe(7);
 
-  // La suma de sus tamaños debe ser 18
   const totalOccupiedCells = ships.reduce((sum, ship) => sum + ship.getLength(), 0);
-  expect(totalOccupiedCells).toBe(18);
+  
+  expect(totalOccupiedCells).toBe(18); // Fleet size is 18 (5+4+3+2+2+1+1)
 
-  // Opcional: asegurarte de que no se sobrepongan (verificás que no haya celdas duplicadas)
+  // Verify that all ships are placed on the board
   const boardState = board.getBoard();
   const occupied = [];
 
@@ -95,5 +95,5 @@ test('Computer places all ships correctly on the board', () => {
   }
 
   const uniqueCells = new Set(occupied);
-  expect(uniqueCells.size).toBe(18); // No debe haber superposición
+  expect(uniqueCells.size).toBe(18); 
 });
