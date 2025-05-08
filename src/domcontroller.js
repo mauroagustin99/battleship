@@ -60,3 +60,7 @@ const userBoardDiv = document.getElementById('user-grid');
   renderGrid(userGrid, userBoardDiv, false);
   renderGrid(computerGrid, computerBoardDiv, true);
 }
+
+export function showFleet(user){
+  console.log('Fleet:', user.getRemainingFleet());
+}

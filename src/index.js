@@ -1,6 +1,6 @@
 import { Gameboard } from "./gameboard.js";
 import { Player } from "./player.js";
-import { renderBoard } from "./domcontroller.js";
+import { renderBoard, showFleet } from "./domcontroller.js";
 import './battleShip.css';
 
 const user = Player('User');
@@ -12,8 +12,15 @@ const computerBoard = Gameboard();
 user.setGameboard(userBoard);
 computer.setGameboard(computerBoard);
 
+
+
 computer.autoPlaceFleet();
-user.autoPlaceFleet();
+user.placeSpecificShip({ name: 'Carrier', size: 5 }, 0, 0, 'horizontal');
+user.placeSpecificShip({ name: 'Battleship', size: 4 }, 2, 2, 'horizontal');
+console.log(userBoard.getShips());
+console.log(user.getRemainingFleet());
+console.log(user.getRemainingAliveShips());
+
 
 renderBoard(userBoard.getBoard(), computerBoard.getBoard());
 
@@ -26,9 +33,8 @@ export function handlePlayerClick(x,y) {
     const result = user.attack(x, y, computerBoard);
 
     if (result === 'hit') {
-      alert('Hit!');
+      showFleet(user);
     } else if (result === 'miss') {
-      alert('Miss!');
     }
 
      if (computerBoard.allShipsSunk()) {

@@ -13,7 +13,6 @@ describe('Game Flow', () => {
     user.setGameboard(userBoard);
     computer.setGameboard(computerBoard);
 
-    // Colocar barcos del usuario
     expect(() => {
       userBoard.placeShip(Ship(5), 0, 0, 'horizontal');
       userBoard.placeShip(Ship(4), 2, 2, 'horizontal');
@@ -24,7 +23,6 @@ describe('Game Flow', () => {
       userBoard.placeShip(Ship(1), 7, 7, 'horizontal');
     }).not.toThrow();
 
-    // Simular algunos turnos
     expect(() => {
       computerBoard.receiveAttack(0, 0);
       userBoard.receiveAttack(1, 1);

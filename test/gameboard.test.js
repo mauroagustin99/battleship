@@ -12,9 +12,9 @@ test('Gameboard places ships correctly', () => {
   const gameboard = Gameboard();
   const ship = Ship(3);
   gameboard.placeShip(ship, 0, 0, 'horizontal');
-  expect(gameboard.getBoard()[0][0]).toBe(ship);
-  expect(gameboard.getBoard()[0][1]).toBe(ship);
-  expect(gameboard.getBoard()[0][2]).toBe(ship);
+  expect(gameboard.getBoard()[0][0].ship).toBe(ship);
+  expect(gameboard.getBoard()[0][1].ship).toBe(ship);
+  expect(gameboard.getBoard()[0][2].ship).toBe(ship);
   expect(gameboard.getShips()).toContain(ship);
   expect(gameboard.getmissedShots()).toEqual([]);
 })

@@ -53,7 +53,7 @@ export function Player(name){
   return opponentBoard.receiveAttack(x, y);
   }
 
-  const remainingFleet = [...fleet];
+  let remainingFleet = [...fleet];
 
   function placeShipFromFleet(x, y, direction){
     if (remainingFleet.length === 0) return;
@@ -63,12 +63,35 @@ export function Player(name){
     gameboard.placeShip(ship, x, y, direction);
   }
 
+  function placeSpecificShip(shipInfo, x, y, direction) {
+    const ship = Ship(shipInfo.size);
+    gameboard.placeShip(ship, x, y, direction);
+    
+    const index = remainingFleet.findIndex((item) => 
+      item.name === shipInfo.name && item.size === shipInfo.size);
+    if (index !== -1) {
+      remainingFleet.splice(index, 1); // Remove the placed ship from the fleet
+    }
+  }
+
+  function getSunkShips() {
+    return gameboard.getShips().filter(ship => ship.isSunk());
+  }
+
+  function getRemainingAliveShips() {
+    return gameboard.getShips().filter(ship => !ship.isSunk());
+  }
+
   function getBoard(){
     return gameboard;
   }
 
   function getPreviousAttacks(){
     return previousAttacks;
+  }
+
+  function getRemainingFleet(){
+    return remainingFleet;
   }
 
   
@@ -81,9 +104,13 @@ export function Player(name){
     getBoard,
     isComputer,
     getPreviousAttacks,
-    placeShipFromFleet,
+    placeShipFromFleet,//maybe delete this function
+    placeSpecificShip,
     setGameboard,
-    autoPlaceFleet
+    autoPlaceFleet,
+    getRemainingFleet,
+    getSunkShips,
+    getRemainingAliveShips
   };
 
 }
