@@ -1,6 +1,6 @@
 import { Gameboard } from "./gameboard.js";
 import { Player } from "./player.js";
-import { renderBoard, showFleet } from "./domcontroller.js";
+import { renderBoard, showFleet, reload, randomPlaceShips } from "./domcontroller.js";
 import './battleShip.css';
 
 const user = Player('User');
@@ -15,14 +15,16 @@ computer.setGameboard(computerBoard);
 
 
 computer.autoPlaceFleet();
-user.placeSpecificShip({ name: 'Carrier', size: 5 }, 0, 0, 'horizontal');
-user.placeSpecificShip({ name: 'Battleship', size: 4 }, 2, 2, 'horizontal');
 console.log(userBoard.getShips());
 console.log(user.getRemainingFleet());
 console.log(user.getRemainingAliveShips());
 
+renderBoard(user, computer);
+showFleet(user);
 
-renderBoard(userBoard.getBoard(), computerBoard.getBoard());
+
+randomPlaceShips(user,computer);
+
 
 
 let currentPlayer = user;
@@ -39,20 +41,25 @@ export function handlePlayerClick(x,y) {
 
      if (computerBoard.allShipsSunk()) {
     alert('¡You won!');
-    reload()
+    reload();
     return;
     }
 
-    currentPlayer = computer;
+    if (user.getRemainingFleet().length === 0){
+      currentPlayer = computer;
     
-    renderBoard(userBoard.getBoard(), computerBoard.getBoard());
+  
+    
+    renderBoard(user, computer);
 
 
     setTimeout(() => {
-    const result = currentPlayer.attack(null, null, userBoard); // Computer's turn (random shot)
-    renderBoard(userBoard.getBoard(), computerBoard.getBoard());
+      
 
-    if (userBoard.allShipsSunk()) {
+    const result = currentPlayer.attack(null, null, userBoard); // Computer's turn (random shot)
+    renderBoard(user, computer);
+
+    if (userBoard.allShipsSunk() ) {
       alert('Computer wins... :(');
       reload()
       return;
@@ -62,7 +69,7 @@ export function handlePlayerClick(x,y) {
     }, 500);
 
 
-  }
+  }}
 }
 
 

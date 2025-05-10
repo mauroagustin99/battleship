@@ -38,10 +38,12 @@ export function Player(name){
         }
       }
     }
+    remainingFleet = []; 
   }
 
   
   function attack(x,y,opponentBoard){
+    if (remainingFleet.length === 0){
     if (isComputer){
       do {
       x = Math.floor(Math.random() * 10);
@@ -49,8 +51,11 @@ export function Player(name){
     } while (previousAttacks.some(coord => coord[0] === x && coord[1] === y));
   }
 
+
+
   previousAttacks.push([x, y]);
   return opponentBoard.receiveAttack(x, y);
+  }else { console.log('primero coloca los barcos');return;}
   }
 
   let remainingFleet = [...fleet];
@@ -83,7 +88,7 @@ export function Player(name){
   }
 
   function getBoard(){
-    return gameboard;
+    return gameboard.getBoard();
   }
 
   function getPreviousAttacks(){

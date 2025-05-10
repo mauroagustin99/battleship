@@ -4,6 +4,11 @@
   margin: 20px;
 }
 
+.playground{
+  display: flex;
+  justify-content: space-around;
+}
+
 .board-grid {
   display: grid;
   grid-template-columns: repeat(10, 30px);
@@ -31,4 +36,15 @@
 
 .cell.miss {
   background-color: black;
+}
+
+#fleet-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.ship-item.selected {
+  border: 2px solid blue;
+  background-color: #e0f0ff;
 }

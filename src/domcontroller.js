@@ -1,7 +1,7 @@
 import { handlePlayerClick } from './index.js';
 
-export function renderBoard(userGrid, computerGrid) {
-const userBoardDiv = document.getElementById('user-grid');
+export function renderBoard(user, computer) {
+  const userBoardDiv = document.getElementById('user-grid');
   const computerBoardDiv = document.getElementById('computer-grid');
 
   userBoardDiv.innerHTML = '<h2>User Board</h2>';
@@ -48,6 +48,20 @@ const userBoardDiv = document.getElementById('user-grid');
               handlePlayerClick(x, y);
             });
           }
+        } else {
+          square.addEventListener('click', () => {
+            if (!selectedShip) return;
+            const direction = 'horizontal'; // Make this dynamic later
+            try {
+              user.placeSpecificShip(selectedShip, x, y, direction);
+              selectedShip = null;
+
+              renderBoard(user, computer);
+              showFleet(user);
+            } catch (e) {
+              alert('Invalid placement!');
+            }
+          })
         }
 
         board.appendChild(square);
@@ -57,10 +71,57 @@ const userBoardDiv = document.getElementById('user-grid');
     container.appendChild(board);
   };
 
-  renderGrid(userGrid, userBoardDiv, false);
-  renderGrid(computerGrid, computerBoardDiv, true);
+  renderGrid(user.getBoard(), userBoardDiv, false);
+  renderGrid(computer.getBoard(), computerBoardDiv, true);
 }
 
+let selectedShip = null;
+
+
 export function showFleet(user){
-  console.log('Fleet:', user.getRemainingFleet());
+  const fleet = document.getElementById('fleet-container');
+  fleet.innerHTML = '<h2>Your Fleet</h2>';
+
+  const ships = user.getRemainingFleet();
+
+  ships.forEach(ship => {
+    const shipDiv = document.createElement('div');
+    shipDiv.classList.add('ship-item');
+    shipDiv.textContent = `${ship.name} (${ship.size})`;
+
+    shipDiv.addEventListener('click', () => {
+  
+    selectedShip = ship;
+  
+    
+    document.querySelectorAll('.ship-item').forEach(el => el.classList.remove('selected'));
+  
+    shipDiv.classList.add('selected');
+    console.log(`Selected ship: ${selectedShip.size}`);
+    });
+    
+    for (let i=0; i<ship.size; i++){
+      const square = document.createElement('div');
+      square.classList.add('cell');
+      square.classList.add('ship');
+      square.textContent = '🚢';
+      shipDiv.appendChild(square);
+    }
+    fleet.appendChild(shipDiv);
+  })
+}
+
+export function reload() {
+  location.reload();
+}
+
+export function randomPlaceShips(user, computer){
+  const randomBtn = document.getElementById('random-place-btn');
+  const userBoard = user.getBoard();
+  const computerBoard = computer.getBoard();
+  randomBtn.addEventListener('click',() =>{
+    user.autoPlaceFleet();
+    renderBoard(userBoard.getBoard(), computerBoard.getBoard());
+    showFleet(user);
+  })
 }
