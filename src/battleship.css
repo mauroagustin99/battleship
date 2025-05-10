@@ -48,3 +48,8 @@
   border: 2px solid blue;
   background-color: #e0f0ff;
 }
+
+.cell.preview {
+  background-color: rgba(0, 128, 255, 0.4); 
+  border: 1px dashed #007BFF;
+}

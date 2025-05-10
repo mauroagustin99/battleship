@@ -61,7 +61,19 @@ export function renderBoard(user, computer) {
             } catch (e) {
               alert('Invalid placement!');
             }
-          })
+          });
+
+          square.addEventListener('mouseenter', () => {
+            if (!selectedShip) return;
+              showPreview(x, y, selectedShip.size, 'horizontal', user.getBoard(), true);
+            });
+          
+          square.addEventListener('mouseleave', () => {
+            if (!selectedShip) return;
+              showPreview(x, y, selectedShip.size, 'horizontal', user.getBoard(), false);
+            });
+
+
         }
 
         board.appendChild(square);
@@ -77,6 +89,30 @@ export function renderBoard(user, computer) {
 
 let selectedShip = null;
 
+
+function showPreview(startX, startY, size, direction, board, show) {
+  const cells = document.querySelectorAll('#user-grid .cell');
+  for (let i = 0; i < size; i++) {
+    let x = startX;
+    let y = startY;
+
+    if (direction === 'horizontal') x += i;
+    else y += i;
+   
+    if (x >= 10 || y >= 10) return; // Out of bounds
+
+    const index = y * 10 + x
+    const cell = cells[index];
+
+    if (!cell) continue; // Cell not found
+
+    if (show) {
+      cell.classList.add('preview');
+    } else {
+      cell.classList.remove('preview');
+    }
+  }
+}
 
 export function showFleet(user){
   const fleet = document.getElementById('fleet-container');
@@ -117,11 +153,9 @@ export function reload() {
 
 export function randomPlaceShips(user, computer){
   const randomBtn = document.getElementById('random-place-btn');
-  const userBoard = user.getBoard();
-  const computerBoard = computer.getBoard();
   randomBtn.addEventListener('click',() =>{
     user.autoPlaceFleet();
-    renderBoard(userBoard.getBoard(), computerBoard.getBoard());
+    renderBoard(user, computer);
     showFleet(user);
   })
 }

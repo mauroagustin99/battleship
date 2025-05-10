@@ -22,7 +22,7 @@ export function Player(name){
   function autoPlaceFleet() {
     if (!gameboard) return;
 
-    for (let shipInfo of fleet) {
+    for (let shipInfo of this.getRemainingFleet()) {
       let placed = false;
       while (!placed) {
         const x = Math.floor(Math.random() * 10);
