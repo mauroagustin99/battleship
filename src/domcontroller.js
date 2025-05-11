@@ -1,11 +1,16 @@
 import { handlePlayerClick } from './index.js';
 
+
+
+let selectedShip = null;
+
 export function renderBoard(user, computer) {
   const userBoardDiv = document.getElementById('user-grid');
   const computerBoardDiv = document.getElementById('computer-grid');
 
   userBoardDiv.innerHTML = '<h2>User Board</h2>';
   computerBoardDiv.innerHTML = '<h2>Computer Board</h2>';
+
 
   const renderGrid = (grid, container, isComputer = false) => {
     const board = document.createElement('div');
@@ -34,6 +39,7 @@ export function renderBoard(user, computer) {
           square.classList.add('miss');
           square.textContent = '🌊';
         }
+        
 
 
         // Add event listener for user clicks
@@ -50,8 +56,9 @@ export function renderBoard(user, computer) {
           }
         } else {
           square.addEventListener('click', () => {
-            if (!selectedShip) return;
-            const direction = 'horizontal'; // Make this dynamic later
+            if (!selectedShip) return; 
+
+
             try {
               user.placeSpecificShip(selectedShip, x, y, direction);
               selectedShip = null;
@@ -63,14 +70,22 @@ export function renderBoard(user, computer) {
             }
           });
 
+          const changeDirectionBtn = document.getElementById('change-direction');
+          let direction = 'horizontal';
+          changeDirectionBtn.addEventListener('click', () =>{
+              direction = direction === 'horizontal' ? 'vertical' : 'horizontal';
+              console.log(`Direction changed to: ${direction}`);
+
+          });
+
           square.addEventListener('mouseenter', () => {
             if (!selectedShip) return;
-              showPreview(x, y, selectedShip.size, 'horizontal', user.getBoard(), true);
+              showPreview(x, y, selectedShip.size, direction, user.getBoard(), true);
             });
           
           square.addEventListener('mouseleave', () => {
             if (!selectedShip) return;
-              showPreview(x, y, selectedShip.size, 'horizontal', user.getBoard(), false);
+              showPreview(x, y, selectedShip.size, direction, user.getBoard(), false);
             });
 
 
@@ -87,7 +102,7 @@ export function renderBoard(user, computer) {
   renderGrid(computer.getBoard(), computerBoardDiv, true);
 }
 
-let selectedShip = null;
+
 
 
 function showPreview(startX, startY, size, direction, board, show) {
