@@ -1,16 +1,47 @@
 <html>
   <head>
     <title>Battleship Game</title>
-    <link rel="stylesheet" type="text/css" href="battleship.css">
-    <script src="battleship.js"></script>
+    <link rel="stylesheet" type="text/css" href="./battleship.css">
+
   <script defer src="main.js"></script></head>
 
   <body>
     <h1>Battleship Game</h1>
-    <div id="game-board"></div>
-    <button id="start-button">Start Game</button>
-    <div id="message"></div>
+    <div id="game-info">
+      <div id="game-status"></div>
+      <div id="turn-info"></div>
+    <div class="playground">
+      <div id="user-grid" class="gameboard"></div>
+      <br>
+      <div id="computer-grid" class="gameboard"></div>
+    </div>
+
+    <div id="fleet">
+      <div id="fleet-title"></div>
+      <div id="fleet-container"></div>
+    </div>
+    
+    <div class="action-btns">
+    <button id="random-place-btn">Random place ships!</button>
+    <button id="change-direction">Change direction</button>
+    </div>
+
+    <div class="author">
+          Made by
+          <a
+            href="https://github.com/mauroagustin99"
+            class="github-link"
+            target="_blank"
+            >mauroagustin99❤️</a
+          >
+        </div>
+
+
+
+
 
     
+    
+    <script type="module" src="./index.js"></script>
   </body>
 </html>
