@@ -1,6 +1,6 @@
 import { Gameboard } from "./gameboard.js";
 import { Player } from "./player.js";
-import { renderBoard, showFleet, reload, randomPlaceShips } from "./domcontroller.js";
+import { renderBoard, showFleet, reload, randomPlaceShips, gameInfo } from "./domcontroller.js";
 import './battleShip.css';
 
 const user = Player('User');
@@ -15,13 +15,9 @@ computer.setGameboard(computerBoard);
 
 
 computer.autoPlaceFleet();
-console.log(userBoard.getShips());
-console.log(user.getRemainingFleet());
-console.log(user.getRemainingAliveShips());
 
 renderBoard(user, computer);
 showFleet(user);
-
 
 randomPlaceShips(user,computer);
 
@@ -30,6 +26,7 @@ randomPlaceShips(user,computer);
 let currentPlayer = user;
 
 export function handlePlayerClick(x,y) {
+  gameInfo(currentPlayer);
   if (currentPlayer === user) {
 
     const result = user.attack(x, y, computerBoard);
@@ -47,6 +44,7 @@ export function handlePlayerClick(x,y) {
 
     if (user.getRemainingFleet().length === 0){
       currentPlayer = computer;
+      gameInfo(currentPlayer);
     
   
     
@@ -66,7 +64,8 @@ export function handlePlayerClick(x,y) {
     }
 
     currentPlayer = user;
-    }, 500);
+    gameInfo(currentPlayer);
+    }, 800);
 
 
   }}

@@ -1,7 +1,56 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+}
+
+body{
+  background-image: url('./gradient.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+h1 {
+  text-align: center;
+
+  font-size: 2.5em;
+  margin-top: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin: 10px 0 ;
+}
+
+p{
+  text-align: center;
+  margin: 0;
+}
+
+.game-status{
+  text-align: center;
+}
+
+.turn-info{
+  text-align: center;
+  
+}
+
+
 #user-board,
 #computer-board {
   display: inline-block;
-  margin: 20px;
+  margin: 0 20px ;
 }
 
 .playground{
@@ -9,11 +58,21 @@
   justify-content: space-around;
 }
 
+.gameboard {
+  margin: 0 20px;
+}
+
 .board-grid {
   display: grid;
   grid-template-columns: repeat(10, 30px);
   grid-template-rows: repeat(10, 30px);
   gap: 2px;
+
+  background: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(6px);    
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
 }
 
 .cell {
@@ -26,30 +85,93 @@
   font-size: 18px;
 }
 
-.cell.ship {
-  background-color: lightgray;
-}
 
 .cell.hit {
   background-color: red;
+  border: 1px solid #000;
 }
 
 .cell.miss {
-  background-color: black;
+  background-color: #ccc;
+  border: 1px solid #000;
 }
 
 #fleet-container {
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(6px);    
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
+
+}
+
+
+.ship-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.ship-cells{
+  display: flex;
 }
 
 .ship-item.selected {
   border: 2px solid blue;
-  background-color: #e0f0ff;
+  border-radius: 6px;
 }
 
 .cell.preview {
   background-color: rgba(0, 128, 255, 0.4); 
   border: 1px dashed #007BFF;
+}
+
+.action-btns{
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background: rgba(22, 114, 14, 0.8);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: rgba(0, 123, 255, 1);
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.8);
+
+}
+
+.author {
+  font-size: 0.7em;
+  justify-self: end;
+  align-self: end;
+  color: white;
+  padding: 5px;
+}
+
+.github-link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+  border-radius: 5px;
+  transition: background-color 0.5s, color 0.3s;
+}
+
+.github-link:hover {
+  background-color: #2d3e40;
+  color: white;
 }

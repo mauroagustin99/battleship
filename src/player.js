@@ -55,7 +55,7 @@ export function Player(name){
 
   previousAttacks.push([x, y]);
   return opponentBoard.receiveAttack(x, y);
-  }else { console.log('primero coloca los barcos');return;}
+  }else { alert('Place ships first!');return;}
   }
 
   let remainingFleet = [...fleet];
@@ -99,6 +99,11 @@ export function Player(name){
     return remainingFleet;
   }
 
+  function getName(){
+    return name;
+  }
+
+
   
 
 
@@ -106,6 +111,7 @@ export function Player(name){
 
   return {
     attack,
+    getName,
     getBoard,
     isComputer,
     getPreviousAttacks,

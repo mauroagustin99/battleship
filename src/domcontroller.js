@@ -130,15 +130,45 @@ function showPreview(startX, startY, size, direction, board, show) {
 }
 
 export function showFleet(user){
+  
+  
   const fleet = document.getElementById('fleet-container');
-  fleet.innerHTML = '<h2>Your Fleet</h2>';
+  const fleetTitle = document.getElementById('fleet-title');
+  const fleetInfo = document.getElementById('game-status');
+  const randomBtn = document.getElementById('random-place-btn');
+  const directionBtn = document.getElementById('change-direction');
 
+  fleetTitle.innerHTML = '<h2>Your Fleet</h2>';
+  fleetInfo.innerHTML = '<p>Place your ships to start the game!<p>';
+  fleet.innerHTML = '';
   const ships = user.getRemainingFleet();
+
+  if (ships.length === 0) {
+    fleet.innerHTML = '';
+    fleetInfo.innerHTML = '';
+    fleetTitle.innerHTML = '';
+    randomBtn.style.display = 'none';
+    directionBtn.style.display = 'none';
+    fleet.style.display = 'none';
+
+    return;
+  }
+  else{  
+  }
+
+
+
 
   ships.forEach(ship => {
     const shipDiv = document.createElement('div');
+    const shipName = document.createElement('div');
+
+    const shipCells = document.createElement('div');
+    shipCells.classList.add('ship-cells');
+
     shipDiv.classList.add('ship-item');
-    shipDiv.textContent = `${ship.name} (${ship.size})`;
+    shipName.textContent = `${ship.name}`;
+    shipDiv.appendChild(shipName);
 
     shipDiv.addEventListener('click', () => {
   
@@ -156,8 +186,9 @@ export function showFleet(user){
       square.classList.add('cell');
       square.classList.add('ship');
       square.textContent = '🚢';
-      shipDiv.appendChild(square);
+      shipCells.appendChild(square);
     }
+    shipDiv.appendChild(shipCells);
     fleet.appendChild(shipDiv);
   })
 }
@@ -173,4 +204,9 @@ export function randomPlaceShips(user, computer){
     renderBoard(user, computer);
     showFleet(user);
   })
+}
+
+export function gameInfo(currentPlayer){
+  const turnInfo = document.getElementById('turn-info');
+  turnInfo.innerHTML = `<p>${currentPlayer.getName() + "'s turn"}</p>`;
 }
